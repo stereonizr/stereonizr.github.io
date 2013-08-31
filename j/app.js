@@ -1,7 +1,7 @@
 var App = function () {
     var drop = document.body;
     var drawCanvas = document.getElementById('canvas').getContext('2d');
-
+    var pictures = [];
     function handleDragOver(e) {
         if (e.preventDefault) {
             e.preventDefault();
@@ -20,21 +20,23 @@ var App = function () {
             }
         }
         console.log(images);
+
         for (i = 0; i < images.length; i++) {
             var img = new Image();
             img.src = URL.createObjectURL(images[i]);
+            pictures.push(img);
 
-
-            img.onload = function () {
-                var ratio = drawCanvas.width / img.width;
+            img.onload = function(e) {
+                var ratio = drawCanvas.width / e.target.width;
                 console.log(drawCanvas.width, drawCanvas.height);
-                console.log(img.width, img.height);
-                drawCanvas.drawImage(img, 0, 0, 100, 100);
+                console.log(e.target.width, e.target.height);
+                drawCanvas.drawImage(e.target, 0, 0, 100, 100);
 
                 alert('Drop!');
             };
 
         }
+        this.convert(pictures);
         return false;
     }
 
@@ -43,7 +45,6 @@ var App = function () {
         console.log(files);
         if (!files[0].type.match('image.*')) {
             console.log('Image!!');
-//            continue;
         }
         var reader = new FileReader();
 
@@ -63,7 +64,7 @@ var App = function () {
     }
 
     drop.addEventListener('dragover', handleDragOver, false);
-    drop.addEventListener('drop', handleDrop, false);
+    drop.addEventListener('drop', handleDrop.bind(this), false);
 //    drop.addEventListener('change', handleFileSelect, false);
 };
 
