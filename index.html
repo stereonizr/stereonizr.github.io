@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html class="page page_index">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="s/s.css">
-    <title>Treelist</title>
-    <script src="j/jquery.js"></script>
-    <script src="j/stereo.js"></script>
-    <script src="j/app.js"></script>
-  </head>
-  <body>
-    <header class="header">
-    </header>
-    <div class="drawArea" id="drawArea" draggable="true">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="s/s.css">
+  <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="stylesheet" type="text/css">
+  <title>StereMe convert your image to stereo</title>
+  <script src="j/jquery.js"></script>
+  <script src="j/stereo.js"></script>
+  <script src="j/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>Image with stereo effect</h1>
+  </header>
+  <div class="drawArea" id="drawArea" draggable="true">
+  </div>
+    <div class="container">
     </div>
-      <div class="container">
-      </div>
-    <script>
-      var app = new App();
-    </script>
+
+  <div class="convert-row">
+    <img src="i/promo_200.jpg" alt="">
+    <span class="convert-row__compare">➩</span>
+    <img src="i/promo_200_converted.jpg" alt="">
+  </div>
+
+  <script>
+    var app = new App();
+  </script>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>
