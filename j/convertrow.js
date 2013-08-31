@@ -1,21 +1,25 @@
 var ConvertRow = function () {
   this.element = document.createElement('div');
   this.element.className = 'convert-row';
+
+  arrow.className = 'convert-row__arrow';
+  arrow.innerHTML = '➩';
+  this.element.appendChild(arrow);
+
 };
 
 ConvertRow.prototype.addImage = function (urlsrc) {
   var img = new Image();
   img.onload = function () {
     this.element.appendChild(img);
+
+    this.resultElem = document.createElement('div');
+    this.resultElem.style.minWidth = img.width;
+    this.resultElem.style.minHeight = img.height;
   }.bind(this);
   img.src = urlsrc;
 
   this.element.appendChild(img);
-
-  var arrow = document.createElement('span');
-  arrow.className = 'convert-row__arrow';
-  arrow.innerHTML = '➩';
-  this.element.appendChild(arrow);
 
   this.convert(img);
 };
