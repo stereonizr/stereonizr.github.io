@@ -1,42 +1,42 @@
 var ConvertRow = function () {
   this.element = document.createElement('div');
   this.element.className = 'convert-row';
-
-  arrow.className = 'convert-row__arrow';
-  arrow.innerHTML = '➩';
-  this.element.appendChild(arrow);
-
 };
 
 ConvertRow.prototype.addImage = function (file) {
   var img = new Image();
   img.src = URL.createObjectURL(file);
   img.onload = function () {
-    this.element.appendChild(img);
-
     this.resultElem = document.createElement('div');
-    this.resultElem.style.minWidth = img.width;
-    this.resultElem.style.minHeight = img.height;
+    this.resultElem.style.minWidth = img.width + 'px';
+    this.resultElem.style.minHeight = img.height + 'px';
+    this.resultElem.className = 'convert-row__result';
+    this.element.appendChild(this.resultElem);
+
+    this.convert(img);
   }.bind(this);
 
   this.element.appendChild(img);
 
-  this.convert(img);
+  var arrow = document.createElement('span');
+  arrow.className = 'convert-row__arrow';
+  arrow.innerHTML = '➩';
+  this.element.appendChild(arrow);
 };
 
 ConvertRow.prototype.convert = function (img) {
-  //var img = new Image();
-  //img.src = 'i/promo_200.jpg';
-  img.onload = function (e) {
-    var offreg = new Plugin(this.element, e.target, false, 0.7, 1);
-    this.addDownloadLink(offreg);
-  }.bind(this);
+  var offreg = new Plugin(this.resultElem, img, false, 0.7, 1);
+  this.addDownloadLink(offreg);
 };
 
 ConvertRow.prototype.addDownloadLink = function (offreg) {
+  var div = document.createElement('div');
+
   var a = document.createElement('a');
   a.href = offreg.c.toDataURL('image/jpeg');
   a.innerHTML = 'Download';
   a.setAttribute('download', 'stereome.jpg');
-  this.element.appendChild(a);
+  div.appendChild(a);
+
+  this.element.appendChild(div);
 };
