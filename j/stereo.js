@@ -8,56 +8,43 @@
 * @license MIT http://opensource.org/licenses/MIT
 * @date 26-06-2013
 */
-(function($) {
 
-$.fn.offreg = function(image,transparent,rotational_err,axis_err){ // strength
-	
-	var el = $(this),
-		process = new Plugin(el,image,transparent,rotational_err,axis_err);	
-			
-	return el;	
-}
-
-var Plugin = function(me,src,png,rot,axis){
-
+var Plugin = function(me,img,png,rot,axis){
 	this.el = me;
-	this.img = new Image();
+	this.img = img;
 	this.w = 0;
 	this.h = 0;
 	this.rot = rot;
 	this.axis = (!axis)? rot : axis;
 
 	this.png = (png)? png : false;
-	this.bg = me.css('background-color');
+	this.bg = '#fff';
 	
 	this.pixelData = [];
 	this.rgb = [];
 
-	this.init(src);
+	this.init();
 }
 
-Plugin.prototype.init = function(src){
+Plugin.prototype.init = function(){
 
 	var $this = this;
 
 	this.c = document.createElement('canvas');
 	this.ctx = this.c.getContext("2d");
 		
-	this.img.src = src;
-	this.img.onload = function(e){
-		// initialise dimensions
-		$this.w = $(this)[0].width;
-		$this.h = $(this)[0].height;
-		
-		$this.c.width = $this.w;
-		$this.c.height = $this.h;
-		
-		$this.padding = 0.9; 	// percentage reduction of image within origin boundaries
-		$this.imgw = $this.w * $this.padding;
-		$this.imgh = $this.h * $this.padding;
+	// initialise dimensions
+	$this.w = this.img.width;
+	$this.h = this.img.height;
+	
+	$this.c.width = $this.w;
+	$this.c.height = $this.h;
+	
+	$this.padding = 0.9; 	// percentage reduction of image within origin boundaries
+	$this.imgw = $this.w * $this.padding;
+	$this.imgh = $this.h * $this.padding;
 
-		$this.buildLayerData();
-	}
+	$this.buildLayerData();
 
 }
 
@@ -209,9 +196,7 @@ Plugin.prototype.toRad = function(deg){
 }
 Plugin.prototype.convertCanvasToImage = function(canvas) {
     var image = new Image();
+    console.log(canvas)
     image.src = (this.png)? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
     return image;
 }
-
-
-})(jQuery);
