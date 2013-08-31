@@ -1,6 +1,6 @@
 var App = function () {
   var drop = document.body;
-  var drawArea = document.getElementById('drawArea');
+  var convertRows = document.getElementsByClassName('convert-rows')[0];
   var pictures = [];
 
   function handleDragOver(e) {
@@ -27,9 +27,7 @@ var App = function () {
       pictures.push(img);
 
       img.onload = function (e) {
-        var ratio = drawArea.offsetWidth / e.target.width;
-        console.log(e.target.width, ratio);
-        drawArea.appendChild(e.target);
+        convertRows.appendChild(e.target);
       }.bind(this);
 
     }
