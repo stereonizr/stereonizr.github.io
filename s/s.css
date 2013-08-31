@@ -30,6 +30,10 @@ body {
   padding: 50px 0 45px;
 }
 
+.convert-row {
+  margin-top: 50px;
+}
+
 .promo__before,
 .promo__after {
   display: inline-block;

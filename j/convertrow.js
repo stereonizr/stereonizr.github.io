@@ -5,14 +5,16 @@ var ConvertRow = function () {
 
 ConvertRow.prototype.addImage = function (urlsrc) {
   var img = new Image();
-  img.src = urlsrc;
   img.onload = function () {
     this.element.appendChild(img);
   }.bind(this);
+  img.src = urlsrc;
 
-  var arrow = document.createElement('div');
+  this.element.appendChild(img);
+
+  var arrow = document.createElement('span');
   arrow.className = 'convert-row__arrow';
-
+  arrow.innerHTML = '➩';
   this.element.appendChild(arrow);
 
   this.convert(img);
