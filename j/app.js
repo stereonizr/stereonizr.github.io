@@ -13,11 +13,10 @@ var App = function () {
     e.stopPropagation();
     e.preventDefault();
     var files = e.dataTransfer.files;
-    var images = [];
     for (var i = 0; i < files.length; i++) {
       if (/image/.test(files[i].type)) {
         var convertRow = new ConvertRow();
-        convertRow.addImage(URL.createObjectURL(files[i]));
+        convertRow.addImage(files[i]);
         convertRows.appendChild(convertRow.element);
       }
     }

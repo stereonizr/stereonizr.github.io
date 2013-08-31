@@ -8,8 +8,9 @@ var ConvertRow = function () {
 
 };
 
-ConvertRow.prototype.addImage = function (urlsrc) {
+ConvertRow.prototype.addImage = function (file) {
   var img = new Image();
+  img.src = URL.createObjectURL(file);
   img.onload = function () {
     this.element.appendChild(img);
 
@@ -17,7 +18,6 @@ ConvertRow.prototype.addImage = function (urlsrc) {
     this.resultElem.style.minWidth = img.width;
     this.resultElem.style.minHeight = img.height;
   }.bind(this);
-  img.src = urlsrc;
 
   this.element.appendChild(img);
 
