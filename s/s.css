@@ -1,8 +1,8 @@
-.drawArea {
+#canvas {
     border: 1px dashed;
     width: 400px;
     height: 400px;
 }
-.drawArea:hover {
+#canvas:hover {
     border: 2px dashed;
 }

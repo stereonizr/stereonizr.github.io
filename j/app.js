@@ -1,6 +1,6 @@
 var App = function () {
     var drop = document.body;
-    var drawArea = document.getElementById('drop');
+    var drawCanvas = document.getElementById('canvas').getContext('2d');
 
     function handleDragOver(e) {
         if (e.preventDefault) {
@@ -20,12 +20,21 @@ var App = function () {
             }
         }
         console.log(images);
-        var img = new Image();
-        img.src = URL.createObjectURL(images[0]);
-        img.onload = function () {
-            drawArea.drawImage(img, 40, 40);
-            alert('Drop!');
-        };
+        for (i = 0; i < images.length; i++) {
+            var img = new Image();
+            img.src = URL.createObjectURL(images[i]);
+
+
+            img.onload = function () {
+                var ratio = drawCanvas.width / img.width;
+                console.log(drawCanvas.width, drawCanvas.height);
+                console.log(img.width, img.height);
+                drawCanvas.drawImage(img, 0, 0, 100, 100);
+
+                alert('Drop!');
+            };
+
+        }
         return false;
     }
 
@@ -56,8 +65,6 @@ var App = function () {
     drop.addEventListener('dragover', handleDragOver, false);
     drop.addEventListener('drop', handleDrop, false);
 //    drop.addEventListener('change', handleFileSelect, false);
-
-
 };
 
 App.prototype.convert = function (image) {
