@@ -1,7 +1,6 @@
 var App = function () {
   var drop = document.body;
   var convertRows = document.getElementsByClassName('convert-rows')[0];
-  var pictures = [];
 
   function handleDragOver(e) {
     if (e.preventDefault) {
@@ -17,21 +16,11 @@ var App = function () {
     var images = [];
     for (var i = 0; i < files.length; i++) {
       if (/image/.test(files[i].type)) {
-        images.push(files[i]);
+        var convertRow = new ConvertRow();
+        convertRow.addImage(URL.createObjectURL(files[i]));
+        convertRows.appendChild(convertRow.element);
       }
     }
-
-    for (i = 0; i < images.length; i++) {
-      var img = new Image();
-      img.src = URL.createObjectURL(images[i]);
-      pictures.push(img);
-
-      img.onload = function (e) {
-        convertRows.appendChild(e.target);
-      }.bind(this);
-
-    }
-    this.convert(pictures);
     return false;
   }
 

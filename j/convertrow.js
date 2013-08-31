@@ -1,13 +1,17 @@
-var ConvertRow = function() {
+var ConvertRow = function () {
   this.element = document.createElement('div');
   this.element.className = 'convert-row';
 };
 
-ConvertRow.prototype.setImage = function(img) {
-  this.element.appendChild(img);
+ConvertRow.prototype.addImage = function (urlsrc) {
+  var img = new Image();
+  img.src = urlsrc;
+  img.onload = function () {
+    this.element.appendChild(img);
+  }.bind(this);
 
   var arrow = document.createElement('div');
-  div.className = 'convert-row__arrow';
+  arrow.className = 'convert-row__arrow';
 
   this.element.appendChild(arrow);
 
