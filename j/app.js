@@ -67,6 +67,19 @@ var App = function () {
 //    drop.addEventListener('change', handleFileSelect, false);
 };
 
-App.prototype.convert = function (image) {
-    $('.container').offreg('i/P8044656_2.JPG', false, 0.7, 1);
+App.prototype.convert = function(img) {
+  //var img = new Image();
+  //img.src = 'i/promo_200.jpg';
+  img.onload = function(e) {
+    var offreg = new Plugin($('.container'), e.target, false, 0.7, 1);
+    this.addDownloadLink(offreg);
+  }.bind(this);
+};
+
+App.prototype.addDownloadLink = function(offreg) {
+  var a = document.createElement('a');
+  a.href = offreg.c.toDataURL('image/jpeg');
+  a.innerHTML = 'Download';
+  a.setAttribute('download', 'stereome.jpg');
+  document.body.appendChild(a);
 };
