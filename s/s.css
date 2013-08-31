@@ -1,8 +1,33 @@
-#canvas {
+html {
+  font-family: 'Duru Sans', sans-serif;
+  background: #FFC09D;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.drawArea {
     border: 1px dashed;
     width: 400px;
     height: 400px;
 }
-#canvas:hover {
+.drawArea:hover {
     border: 2px dashed;
+}
+
+.convert-row {
+  background: #01ffff;
+  text-align: center;
+  padding: 50px 0 45px;
+}
+
+.convert-row__compare {
+  font-size: 100px;
+  color: #ff1477;
+  vertical-align: top;
+  padding-top: 50px;
+  display: inline-block;
 }
