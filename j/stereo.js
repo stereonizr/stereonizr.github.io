@@ -153,7 +153,7 @@ Plugin.prototype.deploy = function(dst){
 		this.ctx.strokeRect(0,-0,this.w,this.h);
 	}
         
-    this.el.append(this.convertCanvasToImage(this.c));
+    this.el.appendChild(this.convertCanvasToImage(this.c));
 }
 
 Plugin.prototype.screenBlend = function(src,dst){
