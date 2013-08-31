@@ -3,12 +3,12 @@ var ConvertRow = function () {
   this.element.className = 'convert-row';
 };
 
-ConvertRow.prototype.addImage = function (urlsrc) {
+ConvertRow.prototype.addImage = function (file) {
   var img = new Image();
+  img.src = URL.createObjectURL(file);
   img.onload = function () {
     this.element.appendChild(img);
   }.bind(this);
-  img.src = urlsrc;
 
   this.element.appendChild(img);
 
