@@ -6,22 +6,26 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="s/s.css">
   <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="stylesheet" type="text/css">
-  <title>StereoMe convert your image to stereo</title>
+  <title>StereoMe: convert your photo to stereo</title>
   <script src="j/jquery.js"></script>
   <script src="j/stereo.js"></script>
   <script src="j/app.js"></script>
+  <script src="j/convertrow.js"></script>
 </head>
 <body draggable="true">
   <header class="header">
-    <h1>Image with stereo effect</h1>
+    <h1>Create photo with stereo effect</h1>
   </header>
-  <div class="convert-rows">
-      <div class="convert-row">
-          <img src="i/promo_200.jpg" alt="">
-          <span class="convert-row__compare">➩</span>
-          <img src="i/promo_200_converted.jpg" alt="">
-      </div>
+  <div class="promo">
+    <div class="promo__before">
+      <img src="i/promo_200.jpg" alt="">
+    </div>
+    <span class="convert-row__arrow">➩</span>
+    <div class="promo__after">
+      <img src="i/promo_200_converted.jpg" alt="">
+    </div>
   </div>
+  <div class="convert-rows"></div>
 
   <script>
     var app = new App();
