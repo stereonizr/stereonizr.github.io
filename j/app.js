@@ -60,9 +60,9 @@ var App = function () {
 
 };
 
-App.prototype.convert = function(image) {
-  var img = new Image();
-  img.src = 'i/P8044656_3.JPG';
+App.prototype.convert = function(img) {
+  //var img = new Image();
+  //img.src = 'i/promo_200.jpg';
   img.onload = function(e) {
     var offreg = new Plugin($('.container'), e.target, false, 0.7, 1);
     this.addDownloadLink(offreg);
