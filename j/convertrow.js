@@ -4,25 +4,30 @@ var ConvertRow = function () {
 };
 
 ConvertRow.prototype.addImage = function (file) {
-  var img = new Image();
-  img.src = URL.createObjectURL(file);
-  img.className = 'convert-row__original';
-  img.onload = function () {
-    this.resultElem = document.createElement('div');
-    this.resultElem.style.minWidth = img.width + 'px';
-    this.resultElem.style.minHeight = img.height + 'px';
-    this.resultElem.className = 'convert-row__result';
-    this.element.appendChild(this.resultElem);
+  this._originalImg = new Image();
+  this._originalImg.src = URL.createObjectURL(file);
+  this._originalImg.className = 'convert-row__original';
+  this._originalImg.onload = this._onOriginalLoad.bind(this);
 
-    this.convert(img);
-  }.bind(this);
+  this.element.appendChild(this._originalImg);
+};
 
-  this.element.appendChild(img);
+ConvertRow.prototype._onOriginalLoad = function() {
+  this.resultElem = document.createElement('div');
+  this.resultElem.style.minWidth = this._originalImg.width + 'px';
+  this.resultElem.style.minHeight = this._originalImg.height + 'px';
+  this.resultElem.className = 'convert-row__result';
+  this.element.appendChild(this.resultElem);
 
   var arrow = document.createElement('span');
   arrow.className = 'convert-row__arrow';
   arrow.innerHTML = '➩';
+  arrow.onclick = function() {
+    this.convert(img);
+  }.bind(this);
   this.element.appendChild(arrow);
+
+  this.convert(img);
 };
 
 ConvertRow.prototype.convert = function (img) {

@@ -79,9 +79,10 @@ body {
 
 .promo__arrow,
 .convert-row__arrow {
-  font-size: 100px;
   color: #ff1477;
-  vertical-align: top;
-  padding: 100px 20px 0;
+  cursor: pointer;
   display: inline-block;
+  font-size: 100px;
+  margin: 100px 20px 0;
+  vertical-align: top;
 }
