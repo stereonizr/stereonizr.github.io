@@ -20,13 +20,12 @@ var App = function () {
       dropPopup.innerHTML = 'Upload your photo';
       drop.appendChild(dropPopup);
     }
+    dropPopup.addEventListener('dragleave', handleDragLeave, false);
   }
 
-  function handleDragEnd() {
-    console.log('END!!!');
-    if (dropPopup) {
-      drop.removeChild(dropPopup);
-    }
+  function handleDragLeave() {
+    drop.removeChild(dropPopup);
+
   }
 
   function handleDrop(e) {
@@ -40,6 +39,9 @@ var App = function () {
         convertRow.addImage(files[i]);
         convertRows.appendChild(convertRow.element);
       }
+    }
+    if (dropPopup) {
+      drop.removeChild(dropPopup);
     }
     return false;
   }
@@ -69,7 +71,6 @@ var App = function () {
 
   drop.addEventListener('dragover', handleDragOver, false);
   drop.addEventListener('dragenter', handleDragEnter, false);
-  drop.addEventListener('dragend', handleDragEnd, false);
   drop.addEventListener('drop', handleDrop.bind(this), false);
-//    drop.addEventListener('change', handleFileSelect, false);
+
 };
