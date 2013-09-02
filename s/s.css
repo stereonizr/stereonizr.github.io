@@ -30,6 +30,8 @@ body {
   z-index: 10;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
+}
+
 .l-main {
   padding-bottom: 50px;
 }
