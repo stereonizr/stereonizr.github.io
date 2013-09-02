@@ -12,20 +12,18 @@ var App = function () {
 
   function handleDragEnter() {
     if (dropPopup) {
-      drop.appendChild(dropPopup)
+      return;
     }
-    else {
-      dropPopup = document.createElement('div');
-      dropPopup.className = 'drop-popup';
-      dropPopup.innerHTML = 'Upload your photo';
-      drop.appendChild(dropPopup);
-    }
+    dropPopup = document.createElement('div');
     dropPopup.addEventListener('dragleave', handleDragLeave, false);
+    dropPopup.className = 'drop-popup';
+    dropPopup.innerHTML = 'Upload your photo';
+    drop.appendChild(dropPopup);
   }
 
   function handleDragLeave() {
     drop.removeChild(dropPopup);
-
+    dropPopup = null;
   }
 
   function handleDrop(e) {
@@ -42,6 +40,7 @@ var App = function () {
     }
     if (dropPopup) {
       drop.removeChild(dropPopup);
+      dropPopup = null;
     }
     return false;
   }
