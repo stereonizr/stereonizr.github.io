@@ -1,12 +1,18 @@
 html {
-  font-family: 'Duru Sans', sans-serif;
   background: #252525;
+  font-family: 'Duru Sans', sans-serif;
+  height: 100%;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
 }
 
 .header {
@@ -24,6 +30,24 @@ body {
   z-index: 10;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
+.l-main {
+  padding-bottom: 50px;
+}
+
+.footer {
+  bottom: 0;
+  color: #FFF;
+  font-size: 13px;
+  padding-top: 25px;
+  height: 25px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+
+.footer a {
+  color: inherit;
 }
 
 .promo,
@@ -31,14 +55,22 @@ body {
   background: #01ffff;
   text-align: center;
   padding: 50px 0 45px;
+  margin-bottom: 50px;
 }
 
-.convert-row {
-  margin-top: 50px;
+.convert-row__original {
+  vertical-align: top;
 }
 
 .convert-row__result {
   display: inline-block;
+  vertical-align: top;
+}
+
+.convert-row__download {
+  background: #000;
+  color: #FFFFFF;
+  padding: 10px;
 }
 
 .promo__before,
