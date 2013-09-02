@@ -1,17 +1,38 @@
 var App = function () {
   var drop = document.body;
   var convertRows = document.getElementsByClassName('convert-rows')[0];
+  var dropPopup;
 
   function handleDragOver(e) {
     if (e.preventDefault) {
       e.preventDefault();
     }
-    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.dropEffect = 'copy';
+  }
+
+  function handleDragEnter() {
+    if (dropPopup) {
+      drop.appendChild(dropPopup)
+    }
+    else {
+      dropPopup = document.createElement('div');
+      dropPopup.className = 'drop-popup';
+      dropPopup.innerHTML = 'Upload your photo';
+      drop.appendChild(dropPopup);
+    }
+  }
+
+  function handleDragEnd() {
+    console.log('END!!!');
+    if (dropPopup) {
+      drop.removeChild(dropPopup);
+    }
   }
 
   function handleDrop(e) {
     e.stopPropagation();
     e.preventDefault();
+
     var files = e.dataTransfer.files;
     for (var i = 0; i < files.length; i++) {
       if (/image/.test(files[i].type)) {
@@ -47,6 +68,8 @@ var App = function () {
   }
 
   drop.addEventListener('dragover', handleDragOver, false);
+  drop.addEventListener('dragenter', handleDragEnter, false);
+  drop.addEventListener('dragend', handleDragEnd, false);
   drop.addEventListener('drop', handleDrop.bind(this), false);
 //    drop.addEventListener('change', handleFileSelect, false);
 };

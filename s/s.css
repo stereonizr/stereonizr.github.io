@@ -14,13 +14,16 @@ body {
   text-align: center;
 }
 
-.drawArea {
-    border: 1px dashed;
-    width: 400px;
-    height: 400px;
-}
-.drawArea:hover {
-    border: 2px dashed;
+.drop-popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border: 2px dashed #ccc;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
 .promo,
