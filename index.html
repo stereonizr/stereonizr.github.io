@@ -13,19 +13,25 @@
   <script src="j/convertrow.js"></script>
 </head>
 <body draggable="true">
-  <header class="header">
-    <h1>Create photo with stereo effect</h1>
-  </header>
-  <div class="promo">
-    <div class="promo__before">
-      <img src="i/promo_200.jpg" alt="">
+  <div class="l-main">
+    <header class="header">
+      <h1>Create photo with stereo effect</h1>
+    </header>
+    <div class="promo">
+      <div class="promo__before">
+        <img src="i/promo_200.jpg" alt="">
+      </div>
+      <span class="convert-row__arrow">➩</span>
+      <div class="promo__after">
+        <img src="i/promo_200_converted.jpg" alt="">
+      </div>
     </div>
-    <span class="convert-row__arrow">➩</span>
-    <div class="promo__after">
-      <img src="i/promo_200_converted.jpg" alt="">
-    </div>
+    <div class="convert-rows"></div>
   </div>
-  <div class="convert-rows"></div>
+
+  <footer class="footer">
+    Developed by <a href="http://lusever.ru">lusever</a> and <a href="https://github.com/alerkesi">alerkesi</a>.
+  </footer>
 
   <script>
     var app = new App();

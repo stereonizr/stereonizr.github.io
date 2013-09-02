@@ -6,6 +6,7 @@ var ConvertRow = function () {
 ConvertRow.prototype.addImage = function (file) {
   var img = new Image();
   img.src = URL.createObjectURL(file);
+  img.className = 'convert-row__original';
   img.onload = function () {
     this.resultElem = document.createElement('div');
     this.resultElem.style.minWidth = img.width + 'px';
@@ -35,8 +36,9 @@ ConvertRow.prototype.addDownloadLink = function (offreg) {
   var a = document.createElement('a');
   a.href = offreg.c.toDataURL('image/jpeg');
   a.innerHTML = 'Download';
+  a.className = 'convert-row__download';
   a.setAttribute('download', 'stereome.jpg');
   div.appendChild(a);
 
-  this.element.appendChild(div);
+  this.resultElem.appendChild(div);
 };
