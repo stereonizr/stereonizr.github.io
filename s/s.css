@@ -94,3 +94,10 @@ body {
   margin: 100px 20px 0;
   vertical-align: top;
 }
+
+.file_label {
+    cursor: pointer;
+}
+.file_input {
+    display: none;
+}
