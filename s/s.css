@@ -20,6 +20,11 @@ body {
   text-align: center;
 }
 
+.header__title {
+  margin-top: 0;
+  padding-top: 15px;
+}
+
 .drop-popup {
   position: fixed;
   top: 0;

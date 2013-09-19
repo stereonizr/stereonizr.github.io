@@ -13,21 +13,21 @@ ConvertRow.prototype.addImage = function (file) {
 };
 
 ConvertRow.prototype._onOriginalLoad = function() {
+  var arrow = document.createElement('span');
+  arrow.className = 'convert-row__arrow';
+  arrow.innerHTML = '➩';
+  arrow.onclick = function() {
+    this.convert(this._originalImg);
+  }.bind(this);
+  this.element.appendChild(arrow);
+
   this.resultElem = document.createElement('div');
   this.resultElem.style.minWidth = this._originalImg.width + 'px';
   this.resultElem.style.minHeight = this._originalImg.height + 'px';
   this.resultElem.className = 'convert-row__result';
   this.element.appendChild(this.resultElem);
 
-  var arrow = document.createElement('span');
-  arrow.className = 'convert-row__arrow';
-  arrow.innerHTML = '➩';
-  arrow.onclick = function() {
-    this.convert(img);
-  }.bind(this);
-  this.element.appendChild(arrow);
-
-  this.convert(img);
+  this.convert(this._originalImg);
 };
 
 ConvertRow.prototype.convert = function (img) {

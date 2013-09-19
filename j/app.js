@@ -74,3 +74,15 @@ var App = function () {
   drop.addEventListener('drop', handleDrop.bind(this), false);
 
 };
+
+App.prototype.initPromo = function(arguments) {
+  var arrow = document.getElementById('promo_arrow').onclick = function() {
+    convertPromoImage();
+  }.bind(this);
+};
+
+App.prototype.convertPromoImage = function() {
+  var originalImg = document.getElementById('promo_original');
+  var result = document.getElementById('promo_result');
+  var offreg = new Plugin(result, originalImg, false, 0.7, 1);
+}
