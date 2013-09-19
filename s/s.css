@@ -88,3 +88,10 @@ body {
   padding: 100px 20px 0;
   display: inline-block;
 }
+
+.file_label {
+    cursor: pointer;
+}
+.file_input {
+    display: none;
+}
