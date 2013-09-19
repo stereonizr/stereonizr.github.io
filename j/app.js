@@ -1,4 +1,9 @@
 var App = function () {
+  this.initPromo();
+  this.initDnD();
+};
+
+App.prototype.initDnD = function () {
   var drop = document.body;
   var convertRows = document.getElementsByClassName('convert-rows')[0];
   var dropPopup;
@@ -67,14 +72,15 @@ var App = function () {
   uploadImage.addEventListener('change', handleFileSelect, false);
 };
 
-App.prototype.initPromo = function(arguments) {
+App.prototype.initPromo = function() {
   var arrow = document.getElementById('promo_arrow').onclick = function() {
-    convertPromoImage();
+    this.convertPromoImage();
   }.bind(this);
 };
 
 App.prototype.convertPromoImage = function() {
   var originalImg = document.getElementById('promo_original');
   var result = document.getElementById('promo_result');
+  result.innerHTML = '';
   var offreg = new Plugin(result, originalImg, false, 0.7, 1);
-}
+};

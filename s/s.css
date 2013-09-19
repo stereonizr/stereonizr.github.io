@@ -21,6 +21,8 @@ body {
 }
 
 .header__title {
+  font-weight: normal;
+  font-size: 36px;
   margin-top: 0;
   padding-top: 15px;
 }
@@ -83,6 +85,11 @@ body {
 .promo__before,
 .promo__after {
   display: inline-block;
+}
+
+.promo__after {
+  width: 500px;
+  height: 375px;
 }
 
 .promo__arrow,
