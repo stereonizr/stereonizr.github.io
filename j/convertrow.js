@@ -4,14 +4,23 @@ var ConvertRow = function () {
 };
 
 ConvertRow.prototype.addImage = function (file) {
+  // don't user "URL.createObjectURL", it is exception in FF "NS_ERROR_NOT_AVAILABLE: Component is not available" for big images
+
+  var fileReader = new FileReader();
+  fileReader.onload = this._onFileReaderLoad.bind(this);
+  fileReader.readAsDataURL(file);
+};
+
+ConvertRow.prototype._onFileReaderLoad = function(e) {
   this._originalImg = new Image();
-  this._originalImg.src = URL.createObjectURL(file);
+  this._originalImg.src = e.target.result;
   this._originalImg.className = 'convert-row__original';
   this._originalImg.onload = this._onOriginalLoad.bind(this);
 
   this.element.appendChild(this._originalImg);
 };
 
+// after read file
 ConvertRow.prototype._onOriginalLoad = function() {
   var arrow = document.createElement('span');
   arrow.className = 'convert-row__arrow';
