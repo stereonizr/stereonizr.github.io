@@ -102,9 +102,16 @@ body {
   vertical-align: top;
 }
 
-.file_label {
-    cursor: pointer;
+.upload-row {
+    height: 80px;
 }
-.file_input {
-    display: none;
+.upload-text, .file_input {
+    font: 86%/1.2727 Verdana,sans-serif;
+    color: #666;
+    vertical-align: top;
+}
+.file_label, .upload-text {
+    padding-top: 30px;
+    padding-left: 15px;
+    display: inline-block;
 }
