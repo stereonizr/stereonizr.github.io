@@ -59,48 +59,66 @@ body {
   color: inherit;
 }
 
-.promo,
-.convert-row {
+.convert {
+  display: table;
+  width: 100%;
   background: #01ffff;
-  text-align: center;
-  padding: 50px 0 45px;
-  margin-bottom: 50px;
+  padding: 3% 0;
+  margin-bottom: 3%;
 }
 
-.convert-row__original {
-  vertical-align: top;
+.convert__row {
+  display: table-row;
 }
 
-.convert-row__result {
+.convert__result {
   display: inline-block;
   vertical-align: top;
 }
 
-.convert-row__download {
+.convert__download {
   background: #000;
   color: #FFFFFF;
   padding: 10px;
 }
 
-.promo__before,
-.promo__after {
-  display: inline-block;
+
+.convert__arrow,
+.convert__before,
+.convert__after {
+  display: table-cell;
 }
 
-.promo__after {
-  width: 500px;
-  height: 375px;
+.convert__before {
+  text-align: right;
+  width: 50%;
 }
 
-.promo__arrow,
-.convert-row__arrow {
+.convert__after {
+  width: 50%;
+}
+
+.convert__before-img {
+  float: right;
+}
+
+.convert__before-img,
+.convert__after-img {
+  width: 100%; /* responsive */
+  display: block;
+}
+
+.convert__arrow {
+  vertical-align: middle;
+}
+
+.convert__arrow-symbol {
   color: #ff1477;
   cursor: pointer;
-  display: inline-block;
   font-size: 100px;
-  margin: 100px 20px 0;
-  vertical-align: top;
+  font-size: 10vw;
 }
+
 
 .upload-row {
     height: 80px;

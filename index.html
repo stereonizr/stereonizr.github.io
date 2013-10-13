@@ -22,15 +22,21 @@
         <input type="file" class="file_input" multiple>
       </div>
     </div>
-    <div class="promo">
-      <div class="promo__before">
-        <img src="i/promo_200.jpg" alt="" id="promo_original" width="500" height="375">
-      </div>
-      <span id="promo_arrow" class="convert-row__arrow">?</span>
-      <div id="promo_result" class="promo__after">
-        <img src="i/promo_200_converted.jpg" alt="" width="500" height="375">
+
+    <div class="convert">
+      <div class="convert__row">
+        <div class="convert__before">
+          <img class="convert__before-img" src="i/promo_200.jpg" alt="" id="promo_original" width="500" height="375" onload="this.removeAttribute('width');this.removeAttribute('height');this.style.maxWidth='500px'">
+        </div>
+        <div id="promo_arrow" class="convert__arrow">
+          <span class="convert__arrow-symbol">➩</span>
+        </div>
+        <div id="promo_result" class="convert__after">
+          <img class="convert__after-img" src="i/promo_200_converted.jpg" alt="" width="500" height="375" onload="this.removeAttribute('width');this.removeAttribute('height');this.style.maxWidth='500px'">
+        </div>
       </div>
     </div>
+
     <div class="convert-rows"></div>
   </div>
 

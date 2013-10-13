@@ -1,6 +1,9 @@
 var ConvertRow = function () {
   this.element = document.createElement('div');
-  this.element.className = 'convert-row';
+  this.element.className = 'convert';
+  this.container = document.createElement('div');
+  this.container.className = 'convert__row';
+  this.element.appendChild(this.container);
 };
 
 ConvertRow.prototype.addImage = function (file) {
@@ -12,31 +15,34 @@ ConvertRow.prototype.addImage = function (file) {
 };
 
 ConvertRow.prototype._onFileReaderLoad = function(e) {
-  this._originalImg = new Image();
-  this._originalImg.src = e.target.result;
-  this._originalImg.className = 'convert-row__original';
-  this._originalImg.onload = this._onOriginalLoad.bind(this);
+  this._beforeImg = new Image();
+  this._beforeImg.src = e.target.result;
+  this._beforeImg.className = 'convert__before';
+  this._beforeImg.onload = this._onOriginalLoad.bind(this);
 
-  this.element.appendChild(this._originalImg);
+  this.container.appendChild(this._beforeImg);
 };
 
 // after read file
 ConvertRow.prototype._onOriginalLoad = function() {
-  var arrow = document.createElement('span');
-  arrow.className = 'convert-row__arrow';
-  arrow.innerHTML = '➩';
-  arrow.onclick = function() {
-    this.convert(this._originalImg);
+  var arrow = document.createElement('div');
+  arrow.className = 'convert__arrow';
+  var arrowSymbol = document.createElement('div');
+  arrowSymbol.className = 'convert__arrow-symbol';
+  arrowSymbol.innerHTML = '➩';
+  arrowSymbol.onclick = function() {
+    this.convert(this._beforeImg);
   }.bind(this);
-  this.element.appendChild(arrow);
+  arrow.appendChild(arrowSymbol);
+  this.container.appendChild(arrow);
 
   this.resultElem = document.createElement('div');
-  this.resultElem.style.minWidth = this._originalImg.width + 'px';
-  this.resultElem.style.minHeight = this._originalImg.height + 'px';
-  this.resultElem.className = 'convert-row__result';
-  this.element.appendChild(this.resultElem);
+  this.resultElem.style.minWidth = this._beforeImg.width + 'px';
+  this.resultElem.style.minHeight = this._beforeImg.height + 'px';
+  this.resultElem.className = 'convert__result';
+  this.container.appendChild(this.resultElem);
 
-  this.convert(this._originalImg);
+  this.convert(this._beforeImg);
 };
 
 ConvertRow.prototype.convert = function (img) {
@@ -50,7 +56,7 @@ ConvertRow.prototype.addDownloadLink = function (offreg) {
   var a = document.createElement('a');
   a.href = offreg.c.toDataURL('image/jpeg');
   a.innerHTML = 'Download';
-  a.className = 'convert-row__download';
+  a.className = 'convert__download';
   a.setAttribute('download', 'stereome.jpg');
   div.appendChild(a);
 
