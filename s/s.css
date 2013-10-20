@@ -87,6 +87,7 @@ body {
 .convert__before,
 .convert__after {
   display: table-cell;
+  vertical-align: top;
 }
 
 .convert__before {

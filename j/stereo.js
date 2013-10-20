@@ -196,7 +196,7 @@ Plugin.prototype.toRad = function(deg){
 }
 Plugin.prototype.convertCanvasToImage = function(canvas) {
     var image = new Image();
-    console.log(canvas)
+    image.className = 'convert__after-img';
     image.src = (this.png)? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
     return image;
 }
