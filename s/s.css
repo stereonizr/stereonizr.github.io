@@ -120,17 +120,13 @@ body {
   font-size: 10vw;
 }
 
+.sitedesc {
+  margin-bottom: 2%;
+  color: #fff;
+  text-align: center;
+}
 
-.upload-row {
-    height: 80px;
-}
-.upload-text, .file_input {
-    font: 86%/1.2727 Verdana,sans-serif;
-    color: #666;
-    vertical-align: top;
-}
-.file_label, .upload-text {
-    padding-top: 30px;
+.sitedesc__upload {
     padding-left: 15px;
     display: inline-block;
 }
