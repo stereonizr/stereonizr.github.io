@@ -5,9 +5,9 @@ var App = function () {
 
 App.prototype.initDnD = function () {
   var drop = document.body;
-  var convertRows = document.getElementsByClassName('convert-rows')[0];
+  var convertRows = document.getElementById('convert_rows');
   var dropPopup;
-  var uploadImage = document.getElementsByClassName('file_label')[0];
+  var uploadImage = document.getElementById('file_input');
 
   function handleDragOver(e) {
     if (e.preventDefault) {
@@ -23,7 +23,6 @@ App.prototype.initDnD = function () {
     dropPopup = document.createElement('div');
     dropPopup.addEventListener('dragleave', handleDragLeave, false);
     dropPopup.className = 'drop-popup';
-    dropPopup.innerHTML = 'Upload your photo';
     drop.appendChild(dropPopup);
   }
 

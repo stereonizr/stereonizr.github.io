@@ -28,15 +28,35 @@ body {
 }
 
 .drop-popup {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
   border: 2px dashed #ccc;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
+  bottom: 1%;
+  bottom: 1vw; /* vw equivalent padding from horizontal and vertical */
+  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.8);
+  left: 1%;
+  left: 1vw;
+  position: fixed;
+  right: 1%;
+  right: 1vw;
+  text-align: center;
+  top: 1%;
+  top: 1vw;
+}
+
+.drop-popup:before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.drop-popup:after {
   color: #fff;
+  content: 'Drop photo here';
+  display: inline-block; /* for small screen*/
+  font-size: 36px;
 }
 
 .l-main {
@@ -52,7 +72,6 @@ body {
   position: absolute;
   text-align: center;
   width: 100%;
-  z-index: 1;
 }
 
 .footer a {
