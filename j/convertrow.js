@@ -33,13 +33,13 @@ ConvertRow.prototype._onFileReaderLoad = function(e) {
   this._beforeImg = new Image();
   this._beforeImg.src = e.target.result;
   this._beforeImg.className = 'convert__before-img';
-  this._beforeImg.onload = this._onOriginalLoad.bind(this);
+  this._beforeImg.onload = this._onBeforeImgLoad.bind(this);
 
   this._beforeElement.appendChild(this._beforeImg);
 };
 
 // after read file
-ConvertRow.prototype._onOriginalLoad = function() {
+ConvertRow.prototype._onBeforeImgLoad = function() {
   var arrowSymbol = document.createElement('div');
   arrowSymbol.className = 'convert__arrow-symbol';
   arrowSymbol.innerHTML = '➩';
@@ -49,6 +49,8 @@ ConvertRow.prototype._onOriginalLoad = function() {
   }.bind(this);
   this._arrowElement.appendChild(arrowSymbol);
 
+  this._beforeImg.style.maxWidth = this._beforeImg.naturalWidth + 'px';
+
   //this._afterElement.style.minWidth = this._beforeImg.width + 'px';
   //this._afterElement.style.minHeight = this._beforeImg.height + 'px';
 
@@ -57,7 +59,6 @@ ConvertRow.prototype._onOriginalLoad = function() {
 
 ConvertRow.prototype.convert = function (img) {
   var offreg = new Plugin(this._afterElement, img, false, 0.7, 1);
-  offreg.img.className = 'convert__after-img';
   this.addDownloadLink(offreg);
 };
 

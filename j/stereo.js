@@ -152,8 +152,15 @@ Plugin.prototype.deploy = function(dst){
 		this.ctx.lineWidth=25; // needs to become dynamic based on source dimensions
 		this.ctx.strokeRect(0,-0,this.w,this.h);
 	}
-        
-    this.el.appendChild(this.convertCanvasToImage(this.c));
+
+  var img = this.convertCanvasToImage(this.c)
+  this.el.appendChild(img);
+
+  // TODO(pk): move logic to up
+  img.className = 'convert__after-img';
+  img.onload = function() {
+    img.style.maxWidth = img.naturalWidth + 'px';
+  };
 }
 
 Plugin.prototype.screenBlend = function(src,dst){
@@ -196,7 +203,6 @@ Plugin.prototype.toRad = function(deg){
 }
 Plugin.prototype.convertCanvasToImage = function(canvas) {
     var image = new Image();
-    image.className = 'convert__after-img';
     image.src = (this.png)? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
     return image;
 }
