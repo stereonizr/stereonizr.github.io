@@ -34,8 +34,8 @@ Plugin.prototype.init = function(){
 	this.ctx = this.c.getContext("2d");
 		
 	// initialise dimensions
-	$this.w = this.img.width;
-	$this.h = this.img.height;
+  $this.w = this.img.naturalWidth;
+  $this.h = this.img.naturalHeight;
 	
 	$this.c.width = $this.w;
 	$this.c.height = $this.h;
