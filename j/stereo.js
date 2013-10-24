@@ -29,8 +29,12 @@ var Plugin = function(me,img,png,rot,axis){
 Plugin.prototype.init = function(){
 
 	var $this = this;
+  this.progress = document.createElement('progress');
+  this.progress.max = '100';
+  this.progress.value = '0';
+  this.el.appendChild(this.progress);
 
-	this.c = document.createElement('canvas');
+  this.c = document.createElement('canvas');
 	this.ctx = this.c.getContext("2d");
 		
 	// initialise dimensions
@@ -44,12 +48,16 @@ Plugin.prototype.init = function(){
 	$this.imgw = $this.w * $this.padding;
 	$this.imgh = $this.h * $this.padding;
 
-	$this.buildLayerData();
+  this.updateProgressBar('25');
+  $this.buildLayerData();
+  this.updateProgressBar('100');
+  //setTimeout(2000);
+  this.progress.style.display = 'none';
 
 }
 
 Plugin.prototype.buildLayerData = function(){
-
+  console.time('buildLayer');
 	var pixels = this.pixelData,
 		degMax = 2 * this.rot,
 		offMax = 10 * this.axis;
@@ -85,14 +93,16 @@ Plugin.prototype.buildLayerData = function(){
         // this.ctx.clearRect(0,0,this.w,this.h);
         
 	}
-
+  console.timeEnd('buildLayer');
+  this.updateProgressBar('50');
 	this.convertToRGBChannels();
 }
 
 
 Plugin.prototype.convertToRGBChannels = function(){
 
-	var rgb = this.rgb; 		// rgb -> temp place to copy the pixel data - 
+	console.time('torgb');
+  var rgb = this.rgb; 		// rgb -> temp place to copy the pixel data -
 								// convert them to their respective colour channel - 
 								// then return them to original imageData source.
 
@@ -126,7 +136,7 @@ Plugin.prototype.convertToRGBChannels = function(){
         this.pixelData[ch].data = channel;
         
 	}
-
+  console.timeEnd('torgb');
 	this.merge();
 }
 
@@ -144,7 +154,8 @@ Plugin.prototype.merge = function(){
 }
 
 Plugin.prototype.deploy = function(dst){
-	
+
+  console.time('deploy');
 	this.ctx.putImageData(dst,0,0);
 
 	if(!this.png){ // dirty jpeg hack -> was creating a black background -> line width test on smaller images
@@ -161,10 +172,11 @@ Plugin.prototype.deploy = function(dst){
   img.onload = function() {
     img.style.maxWidth = img.naturalWidth + 'px';
   };
+  console.timeEnd('deploy');
 }
 
 Plugin.prototype.screenBlend = function(src,dst){
-
+  console.time('screenBlend');
 	var sA, dA, len = dst.data.length;
     var sRA, sGA, sBA, dRA, dGA, dBA, dA2;
     var demultiply;
@@ -188,21 +200,30 @@ Plugin.prototype.screenBlend = function(src,dst){
         dst.data[px+1] = (sGA + dGA - sGA*dGA) * demultiply;
         dst.data[px+2] = (sBA + dBA - sBA*dBA) * demultiply;
     }
+  console.timeEnd('screenBlend');
 
 }
 Plugin.prototype.invert = function(pixels){
 
+  console.time('invert');
 	for(var i=0;i<pixels.data.length-4;i+=4){
 	    pixels.data[i] = 255 - pixels.data[i];
 	    pixels.data[i+1] = 255 - pixels.data[i+1];
 	    pixels.data[i+2] = 255 - pixels.data[i+2];
 	}
+  console.timeEnd('invert');
+
 }
 Plugin.prototype.toRad = function(deg){
     return deg/180 * Math.PI;
 }
 Plugin.prototype.convertCanvasToImage = function(canvas) {
+    console.time('tocanvas');
     var image = new Image();
     image.src = (this.png)? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
+    console.timeEnd('tocanvas');
     return image;
+}
+Plugin.prototype.updateProgressBar = function(percent) {
+    this.progress.value = percent;
 }

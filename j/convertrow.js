@@ -58,8 +58,10 @@ ConvertRow.prototype._onBeforeImgLoad = function() {
 };
 
 ConvertRow.prototype.convert = function (img) {
+  console.time('Final');
   var offreg = new Plugin(this._afterElement, img, false, 0.7, 1);
   this.addDownloadLink(offreg);
+  console.timeEnd('Final');
 };
 
 ConvertRow.prototype.addDownloadLink = function (offreg) {
