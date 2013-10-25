@@ -82,17 +82,24 @@ body {
   -webkit-perspective: 400px;
 }
 
-.promo {
+.convert_promo {
   perspective: 400px;
-  display: table;
+  display: table; /* need for FF 3d animate */
+  width: 100%;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   -webkit-transform-origin: 100% 0;
           transform-origin: 100% 0;
-  -webkit-transition: -webkit-transform .2s, height .2s;
-          transition: transform .2s, height .2s;
+  -webkit-transition: -webkit-transform .2s, margin-bottom .2s;
+          transition:         transform .2s, margin-bottom .2s;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
+}
+
+.convert-rows_promo_hide .convert_promo {
+  -webkit-transform: translateZ(-400px) rotateX(75deg);
+          transform: translateZ(-400px) rotateX(75deg);
+  margin-bottom: -455px;
 }
 
 .convert {
@@ -101,12 +108,6 @@ body {
   background: #01ffff;
   padding: 3% 0;
   margin-bottom: 3%;
-}
-
-.convert_hide {
-  -webkit-transform: translateZ(-400px) rotateX(75deg);
-          transform: translateZ(-400px) rotateX(75deg);
-  overflow: hidden;
 }
 
 .convert__row {

@@ -82,7 +82,7 @@ App.prototype.convertPromoImage = function() {
 };
 
 App.prototype.hidePromo = function() {
-  document.getElementById('promo').classList.add('convert_hide');
+  document.getElementById('convert_rows').classList.add('convert-rows_promo_hide');
 };
 
 App.prototype.addImage = function(file) {
