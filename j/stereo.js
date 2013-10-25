@@ -24,7 +24,7 @@ var Plugin = function (me, img, png, rot, axis) {
   this.rgb = [];
 
   this.init();
-}
+};
 
 Plugin.prototype.init = function () {
 
@@ -48,19 +48,19 @@ Plugin.prototype.init = function () {
   $this.imgw = $this.w * $this.padding;
   $this.imgh = $this.h * $this.padding;
 
-  this.worker = new Worker('j/progressbar.js');
-  this.worker.postMessage(10);
-  this.worker.onmessage = function (evt) {
-    if (evt.data && evt.data < 100) {
-      this.progress.value = evt.data;
-    } else if (evt.data === 100) {
-      this.progress.style.display = 'none';
-    }
-
-  }.bind(this);
+  //this.worker = new Worker('j/worker.js');
+//  this.worker.postMessage(10);
+//  this.worker.onmessage = function (evt) {
+//    if(evt.data && evt.data < 100){
+//      this.progress.value = evt.data;
+//    } else if(evt.data === 100){
+//      this.progress.style.display = 'none';
+//    }
+//
+//  }.bind(this);
   $this.buildLayerData();
-  this.worker.postMessage(100);
-}
+//  this.worker.postMessage(100);
+};
 
 Plugin.prototype.buildLayerData = function () {
   console.time('buildLayer');
@@ -100,9 +100,9 @@ Plugin.prototype.buildLayerData = function () {
 
   }
   console.timeEnd('buildLayer');
-  this.worker.postMessage(15);
+//  this.worker.postMessage(15);
   this.convertToRGBChannels();
-}
+};
 
 
 Plugin.prototype.convertToRGBChannels = function () {
@@ -144,25 +144,37 @@ Plugin.prototype.convertToRGBChannels = function () {
 
   }
   console.timeEnd('torgb');
-  this.worker.postMessage(30);
+//  this.worker.postMessage(30);
   this.merge();
-}
+};
 
 
 Plugin.prototype.merge = function () {
-
+  if (!window.Worker) {
+    alert('Doesn\'t support workers');
+    return;
+  }
   var output = this.pixelData[1];
+  var worker = new Worker('j/worker.js');
+  /* merge red green */
+  worker.postMessage({
+    src: this.pixelData[0],
+    output: output
+  });
+  worker.onmessage = function (event) {
+    output = event.data;
+    /* merge [red/green] with blue */
+    this.postMessage({src: this.pixelData[2], output: output});
+  }.bind(output);
+  worker.onmessage = function (event) {
+    output = event.data;
 
-  this.screenBlend(this.pixelData[0], output); // merge red & green
-  this.worker.postMessage(45);
-  this.screenBlend(this.pixelData[2], output); // merge [red/green] with blue
-  this.worker.postMessage(60);
-  this.invert(output);
-  this.worker.postMessage(75);
+    this.invert(output);
 
-  this.deploy(output);
-  this.worker.postMessage(90);
-}
+    this.deploy(output);
+
+  }.bind(this, output);
+};
 
 Plugin.prototype.deploy = function (dst) {
 
@@ -184,36 +196,15 @@ Plugin.prototype.deploy = function (dst) {
     img.style.maxWidth = img.naturalWidth + 'px';
   };
   console.timeEnd('deploy');
-}
+};
 
-Plugin.prototype.screenBlend = function (src, dst) {
+/*Plugin.prototype.screenBlend = function (src, dst) {
   console.time('screenBlend');
-  var sA, dA, len = dst.data.length;
-  var sRA, sGA, sBA, dRA, dGA, dBA, dA2;
-  var demultiply;
-
-  for (var px = 0; px < len; px += 4) {
-    sA = src.data[px + 3] / 255;
-    dA = dst.data[px + 3] / 255;
-    dA2 = (sA + dA - sA * dA);
-    dst.data[px + 3] = dA2 * 255;
-
-    sRA = src.data[px  ] / 255 * sA;
-    dRA = dst.data[px  ] / 255 * dA;
-    sGA = src.data[px + 1] / 255 * sA;
-    dGA = dst.data[px + 1] / 255 * dA;
-    sBA = src.data[px + 2] / 255 * sA;
-    dBA = dst.data[px + 2] / 255 * dA;
-
-    demultiply = 255 / dA2;
-
-    dst.data[px  ] = (sRA + dRA - sRA * dRA) * demultiply;
-    dst.data[px + 1] = (sGA + dGA - sGA * dGA) * demultiply;
-    dst.data[px + 2] = (sBA + dBA - sBA * dBA) * demultiply;
-  }
+  this.worker.postMessage(src, dst);
+  this.worker.onmessage
   console.timeEnd('screenBlend');
 
-}
+};*/
 Plugin.prototype.invert = function (pixels) {
 
   console.time('invert');
@@ -224,17 +215,17 @@ Plugin.prototype.invert = function (pixels) {
   }
   console.timeEnd('invert');
 
-}
+};
 Plugin.prototype.toRad = function (deg) {
   return deg / 180 * Math.PI;
-}
+};
 Plugin.prototype.convertCanvasToImage = function (canvas) {
   console.time('tocanvas');
   var image = new Image();
   image.src = (this.png) ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
   console.timeEnd('tocanvas');
   return image;
-}
+};
 Plugin.prototype.updateProgressBar = function (percent) {
 
-}
+};
