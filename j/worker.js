@@ -1,8 +1,8 @@
 
 onmessage = function (event) {
   var data = event.data,
-      dst = data.output,
-      src = data.src;
+    dst = data.output,
+    src = data.src;
 
   var sA, dA, len = dst.data.length;
   var sRA, sGA, sBA, dRA, dGA, dBA, dA2;
@@ -27,5 +27,16 @@ onmessage = function (event) {
     dst.data[px+1] = (sGA + dGA - sGA*dGA) * demultiply;
     dst.data[px+2] = (sBA + dBA - sBA*dBA) * demultiply;
   }
-  postMessage({output: dst});
+  invert(dst);
+
+  postMessage(dst);
 };
+
+function invert (pixels) {
+  for (var i = 0; i < pixels.data.length - 4; i += 4) {
+    pixels.data[i] = 255 - pixels.data[i];
+    pixels.data[i + 1] = 255 - pixels.data[i + 1];
+    pixels.data[i + 2] = 255 - pixels.data[i + 2];
+  }
+
+}

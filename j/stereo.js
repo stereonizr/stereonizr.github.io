@@ -154,26 +154,31 @@ Plugin.prototype.merge = function () {
     alert('Doesn\'t support workers');
     return;
   }
+  var src1 = this.pixelData[0];
+  var src2 = this.pixelData[2];
+
   var output = this.pixelData[1];
   var worker = new Worker('j/worker.js');
   /* merge red green */
   worker.postMessage({
-    src: this.pixelData[0],
+    src: src1,
     output: output
   });
   worker.onmessage = function (event) {
     output = event.data;
     /* merge [red/green] with blue */
-    this.postMessage({src: this.pixelData[2], output: output});
-  }.bind(output);
+    console.log(this);
+    this.postMessage({src: src2, output: output});
+  };
+
   worker.onmessage = function (event) {
     output = event.data;
 
-    this.invert(output);
+//    this.invert(output);
 
     this.deploy(output);
 
-  }.bind(this, output);
+  }.bind(this);
 };
 
 Plugin.prototype.deploy = function (dst) {
@@ -187,7 +192,7 @@ Plugin.prototype.deploy = function (dst) {
     this.ctx.strokeRect(0, -0, this.w, this.h);
   }
 
-  var img = this.convertCanvasToImage(this.c)
+  var img = this.convertCanvasToImage(this.c);
   this.el.appendChild(img);
 
   // TODO(pk): move logic to up
@@ -205,7 +210,7 @@ Plugin.prototype.deploy = function (dst) {
   console.timeEnd('screenBlend');
 
 };*/
-Plugin.prototype.invert = function (pixels) {
+/*Plugin.prototype.invert = function (pixels) {
 
   console.time('invert');
   for (var i = 0; i < pixels.data.length - 4; i += 4) {
@@ -215,7 +220,7 @@ Plugin.prototype.invert = function (pixels) {
   }
   console.timeEnd('invert');
 
-};
+};*/
 Plugin.prototype.toRad = function (deg) {
   return deg / 180 * Math.PI;
 };
