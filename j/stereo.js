@@ -48,12 +48,18 @@ Plugin.prototype.init = function(){
 	$this.imgw = $this.w * $this.padding;
 	$this.imgh = $this.h * $this.padding;
 
-  this.updateProgressBar('25');
-  $this.buildLayerData();
-  this.updateProgressBar('100');
-  //setTimeout(2000);
-  this.progress.style.display = 'none';
+  this.worker = new Worker('j/progressbar.js');
+  this.worker.postMessage(10);
+  this.worker.onmessage = function (evt) {
+    if(evt.data && evt.data < 100){
+      this.progress.value = evt.data;
+    } else if(evt.data === 100){
+      this.progress.style.display = 'none';
+    }
 
+  }.bind(this);
+  $this.buildLayerData();
+  this.worker.postMessage(100);
 }
 
 Plugin.prototype.buildLayerData = function(){
@@ -94,7 +100,7 @@ Plugin.prototype.buildLayerData = function(){
         
 	}
   console.timeEnd('buildLayer');
-  this.updateProgressBar('50');
+  this.worker.postMessage(15);
 	this.convertToRGBChannels();
 }
 
@@ -137,6 +143,7 @@ Plugin.prototype.convertToRGBChannels = function(){
         
 	}
   console.timeEnd('torgb');
+  this.worker.postMessage(30);
 	this.merge();
 }
 
@@ -146,11 +153,14 @@ Plugin.prototype.merge = function(){
 	var output = this.pixelData[1];
 
 	this.screenBlend(this.pixelData[0],output); // merge red & green
+  this.worker.postMessage(45);
 	this.screenBlend(this.pixelData[2],output); // merge [red/green] with blue
-
+  this.worker.postMessage(60);
 	this.invert(output);
+  this.worker.postMessage(75);
 
 	this.deploy(output);
+  this.worker.postMessage(90);
 }
 
 Plugin.prototype.deploy = function(dst){
@@ -225,5 +235,5 @@ Plugin.prototype.convertCanvasToImage = function(canvas) {
     return image;
 }
 Plugin.prototype.updateProgressBar = function(percent) {
-    this.progress.value = percent;
+
 }
