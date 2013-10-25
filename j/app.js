@@ -5,9 +5,10 @@ var App = function () {
 
 App.prototype.initDnD = function () {
   var drop = document.body;
-  var convertRows = document.getElementById('convert_rows');
   var dropPopup;
   var uploadImage = document.getElementById('file_input');
+
+  this.convertRows = document.getElementById('convert_rows');
 
   function handleDragOver(e) {
     if (e.preventDefault) {
@@ -38,9 +39,7 @@ App.prototype.initDnD = function () {
     var files = e.dataTransfer.files;
     for (var i = 0; i < files.length; i++) {
       if (/image/.test(files[i].type)) {
-        var convertRow = new ConvertRow();
-        convertRow.addImage(files[i]);
-        convertRows.appendChild(convertRow.element);
+        this.addImage(files[i]);
       }
     }
     if (dropPopup) {
@@ -50,20 +49,18 @@ App.prototype.initDnD = function () {
     return false;
   }
 
-  function handleFileSelect(e) {
+  var handleFileSelect = function(e) {
     var files = e.target.files;
     console.log(files);
     for (var i = 0; i < files.length; i++) {
       if (/image/.test(files[i].type)) {
-        var convertRow = new ConvertRow();
-        convertRow.addImage(files[i]);
-        convertRows.appendChild(convertRow.element);
+        this.addImage(files[i]);
       } else {
         console.log('Image!!');
       }
     }
     return false;
-  }
+  }.bind(this);
 
   drop.addEventListener('dragover', handleDragOver, false);
   drop.addEventListener('dragenter', handleDragEnter, false);
@@ -82,4 +79,15 @@ App.prototype.convertPromoImage = function() {
   var result = document.getElementById('promo_result');
   result.innerHTML = '';
   var offreg = new Plugin(result, originalImg, false, 0.7, 1);
+};
+
+App.prototype.hidePromo = function() {
+  document.getElementById('promo').classList.add('convert_hide');
+};
+
+App.prototype.addImage = function(file) {
+  var convertRow = new ConvertRow();
+  convertRow.addImage(file);
+  this.convertRows.appendChild(convertRow.element);
+  this.hidePromo();
 };
