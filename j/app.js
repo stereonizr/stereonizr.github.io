@@ -1,4 +1,7 @@
 var App = function () {
+  this.promoRow = document.getElementById('promo');
+  this.convertRows = document.getElementById('convert_rows');
+
   this.initPromo();
   this.initDnD();
 };
@@ -8,7 +11,6 @@ App.prototype.initDnD = function () {
   var dropPopup;
   var uploadImage = document.getElementById('file_input');
 
-  this.convertRows = document.getElementById('convert_rows');
 
   function handleDragOver(e) {
     if (e.preventDefault) {
@@ -88,6 +90,11 @@ App.prototype.hidePromo = function() {
 App.prototype.addImage = function(file) {
   var convertRow = new ConvertRow();
   convertRow.addImage(file);
-  this.convertRows.appendChild(convertRow.element);
+  // insert after promo
+  if (this.convertRows.children.length > 1) {
+    this.convertRows.insertBefore(convertRow.element, this.promoRow.nextSibling);
+  } else {
+    this.convertRows.appendChild(convertRow.element);
+  }
   this.hidePromo();
 };
