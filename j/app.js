@@ -84,17 +84,23 @@ App.prototype.convertPromoImage = function() {
 };
 
 App.prototype.hidePromo = function() {
-  document.getElementById('convert_rows').classList.add('convert-rows_promo_hide');
+  this.convertRows.classList.add('convert-rows_promo_hide');
+  this.promoRow.style.marginBottom = -this.promoRow.offsetHeight + 'px';
+  // remove for fix chrome rendering animations bugs after add more images
+  setTimeout(function() {
+    this.convertRows.removeChild(this.promoRow);
+    this.promoRow = null;
+  }.bind(this), 1000);
 };
 
 App.prototype.addImage = function(file) {
   var convertRow = new ConvertRow();
   convertRow.addImage(file);
-  // insert after promo
-  if (this.convertRows.children.length > 1) {
-    this.convertRows.insertBefore(convertRow.element, this.promoRow.nextSibling);
-  } else {
+  // insert to top
+  if (this.promoRow) {
     this.convertRows.appendChild(convertRow.element);
+    this.hidePromo();
+  } else {
+    this.convertRows.insertBefore(convertRow.element, this.convertRows.firstChild);
   }
-  this.hidePromo();
 };
