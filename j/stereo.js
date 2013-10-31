@@ -48,18 +48,7 @@ Plugin.prototype.init = function () {
   $this.imgw = $this.w * $this.padding;
   $this.imgh = $this.h * $this.padding;
 
-  //this.worker = new Worker('j/worker.js');
-//  this.worker.postMessage(10);
-//  this.worker.onmessage = function (evt) {
-//    if(evt.data && evt.data < 100){
-//      this.progress.value = evt.data;
-//    } else if(evt.data === 100){
-//      this.progress.style.display = 'none';
-//    }
-//
-//  }.bind(this);
   $this.buildLayerData();
-//  this.worker.postMessage(100);
 };
 
 Plugin.prototype.buildLayerData = function () {
@@ -159,26 +148,17 @@ Plugin.prototype.merge = function () {
 
   var output = this.pixelData[1];
   var worker = new Worker('j/worker.js');
-  /* merge red green */
+  console.time('worker');
   worker.postMessage({
-    src: src1,
+    src1: src1,
+    src2: src2,
     output: output
   });
   worker.onmessage = function (event) {
     output = event.data;
-    /* merge [red/green] with blue */
-    console.log(this);
-    this.postMessage({src: src2, output: output});
-  };
-
-  worker.onmessage = function (event) {
-    output = event.data;
-
-//    this.invert(output);
-
     this.deploy(output);
-
   }.bind(this);
+  console.timeEnd('worker');
 };
 
 Plugin.prototype.deploy = function (dst) {
@@ -203,24 +183,6 @@ Plugin.prototype.deploy = function (dst) {
   console.timeEnd('deploy');
 };
 
-/*Plugin.prototype.screenBlend = function (src, dst) {
-  console.time('screenBlend');
-  this.worker.postMessage(src, dst);
-  this.worker.onmessage
-  console.timeEnd('screenBlend');
-
-};*/
-/*Plugin.prototype.invert = function (pixels) {
-
-  console.time('invert');
-  for (var i = 0; i < pixels.data.length - 4; i += 4) {
-    pixels.data[i] = 255 - pixels.data[i];
-    pixels.data[i + 1] = 255 - pixels.data[i + 1];
-    pixels.data[i + 2] = 255 - pixels.data[i + 2];
-  }
-  console.timeEnd('invert');
-
-};*/
 Plugin.prototype.toRad = function (deg) {
   return deg / 180 * Math.PI;
 };
