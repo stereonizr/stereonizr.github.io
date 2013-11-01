@@ -2,6 +2,7 @@ html {
   background: #252525;
   font-family: 'Duru Sans', sans-serif;
   height: 100%;
+  font-size: 1px;
 }
 
 html,
@@ -22,9 +23,21 @@ body {
 
 .header__title {
   font-weight: normal;
-  font-size: 36px;
+  font-size: 36rem;
   margin-top: 0;
   padding-top: 15px;
+}
+
+@media screen and (max-width: 992px) {
+  body {
+    font-size: .8px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: .7px;
+  }
 }
 
 .drop-popup {
@@ -66,7 +79,7 @@ body {
 .footer {
   bottom: 0;
   color: #FFF;
-  font-size: 13px;
+  font-size: 13rem;
   padding-top: 25px;
   height: 25px;
   position: absolute;
@@ -97,6 +110,10 @@ body {
   /* http://css-tricks.com/almanac/properties/b/backface-visibility/ */
   position: relative;
   z-index: -1;
+}
+
+.convert-rows {
+  font-size: 16rem;
 }
 
 .convert-rows_promo_hide .convert_promo {
@@ -167,6 +184,7 @@ body {
 }
 
 .sitedesc {
+  font-size: 20rem;
   margin-bottom: 2%;
   color: #fff;
   text-align: center;
