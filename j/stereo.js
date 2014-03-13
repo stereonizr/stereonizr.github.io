@@ -9,8 +9,9 @@
  * @date 26-06-2013
  */
 
-var Plugin = function (me, img, png, rot, axis) {
+var Plugin = function (me, img, png, rot, axis, callback) {
   this.el = me;
+  this.callback = callback;
   this.img = img;
   this.w = 0;
   this.h = 0;
@@ -18,7 +19,7 @@ var Plugin = function (me, img, png, rot, axis) {
   this.axis = (!axis) ? rot : axis;
 
   this.png = (png) ? png : false;
-  this.bg = '#fff';
+  this.bg = '#000';
 
   this.pixelData = [];
   this.rgb = [];
@@ -27,28 +28,29 @@ var Plugin = function (me, img, png, rot, axis) {
 };
 
 Plugin.prototype.init = function () {
-
-  var $this = this;
   this.progress = document.createElement('progress');
-  this.progress.max = '100';
-  this.progress.value = '0';
+  this.progress.max = 100;
+  this.progress.value = 1;
   this.el.appendChild(this.progress);
 
-  this.c = document.createElement('canvas');
-  this.ctx = this.c.getContext("2d");
+  setTimeout(function() {
+    this.c = document.createElement('canvas');
+    this.ctx = this.c.getContext("2d");
 
-  // initialise dimensions
-  $this.w = this.img.naturalWidth;
-  $this.h = this.img.naturalHeight;
+    // initialise dimensions
+    this.w = this.img.naturalWidth;
+    this.h = this.img.naturalHeight;
 
-  $this.c.width = $this.w;
-  $this.c.height = $this.h;
+    this.c.width = this.w;
+    this.c.height = this.h;
 
-  $this.padding = 0.9; 	// percentage reduction of image within origin boundaries
-  $this.imgw = $this.w * $this.padding;
-  $this.imgh = $this.h * $this.padding;
+    this.padding = 0.95;  // percentage reduction of image within origin boundaries
+    this.imgw = this.w * this.padding;
+    this.imgh = this.h * this.padding;
 
-  $this.buildLayerData();
+    this.buildLayerData();
+  }.bind(this), 100);
+
 };
 
 Plugin.prototype.buildLayerData = function () {
@@ -89,7 +91,7 @@ Plugin.prototype.buildLayerData = function () {
 
   }
   console.timeEnd('buildLayer');
-//  this.worker.postMessage(15);
+  this.updateProgressBar(40);
   this.convertToRGBChannels();
 };
 
@@ -133,7 +135,7 @@ Plugin.prototype.convertToRGBChannels = function () {
 
   }
   console.timeEnd('torgb');
-//  this.worker.postMessage(30);
+  this.updateProgressBar(70);
   this.merge();
 };
 
@@ -172,6 +174,8 @@ Plugin.prototype.deploy = function (dst) {
     this.ctx.strokeRect(0, -0, this.w, this.h);
   }
 
+  this.el.removeChild(this.progress);
+
   var img = this.convertCanvasToImage(this.c);
   this.el.appendChild(img);
 
@@ -181,18 +185,22 @@ Plugin.prototype.deploy = function (dst) {
     img.style.maxWidth = img.naturalWidth + 'px';
   };
   console.timeEnd('deploy');
+  this.callback();
 };
 
 Plugin.prototype.toRad = function (deg) {
   return deg / 180 * Math.PI;
 };
+
 Plugin.prototype.convertCanvasToImage = function (canvas) {
   console.time('tocanvas');
   var image = new Image();
   image.src = (this.png) ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg");
   console.timeEnd('tocanvas');
+  this.updateProgressBar(85);
   return image;
 };
-Plugin.prototype.updateProgressBar = function (percent) {
 
+Plugin.prototype.updateProgressBar = function(percent) {
+  this.progress.value = percent;
 };

@@ -34,7 +34,6 @@ function screenBlend (src, dst) {
         dst.data[px + 1] = (sGA + dGA - sGA * dGA) * demultiply;
         dst.data[px + 2] = (sBA + dBA - sBA * dBA) * demultiply;
     }
-
 }
 
 function invert (pixels) {
@@ -43,5 +42,4 @@ function invert (pixels) {
     pixels.data[i + 1] = 255 - pixels.data[i + 1];
     pixels.data[i + 2] = 255 - pixels.data[i + 2];
   }
-
 }
