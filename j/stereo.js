@@ -11,7 +11,6 @@
 
 var Plugin = function (me, img, png, rot, axis, callback) {
   this.el = me;
-  this.callback = callback;
   this.img = img;
   this.w = 0;
   this.h = 0;
@@ -97,9 +96,8 @@ Plugin.prototype.buildLayerData = function () {
 
 
 Plugin.prototype.convertToRGBChannels = function () {
-
   console.time('torgb');
-  var rgb = this.rgb; 		// rgb -> temp place to copy the pixel data -
+  var rgb = this.rgb; // rgb -> temp place to copy the pixel data -
   // convert them to their respective colour channel -
   // then return them to original imageData source.
 
@@ -112,18 +110,17 @@ Plugin.prototype.convertToRGBChannels = function () {
     for (var i = 0; i < channel.length - 4; i += 4) {
 
       switch (ch) {
-        case 0: 		// red channel
+        case 0: // red channel
           channel[i] = 255 - channel[i];
           channel[i + 1] = 0;
           channel[i + 2] = 0;
           break;
-        case 1: 		// green channel
-          channel[i] = 0
+        case 1: // green channel
+          channel[i] = 0;
           channel[i + 1] = 255 - channel[i + 1];
-          ;
           channel[i + 2] = 0;
           break;
-        case 2: 		// blue channel
+        case 2: // blue channel
           channel[i] = 0;
           channel[i + 1] = 0;
           channel[i + 2] = 255 - channel[i + 2];
@@ -183,9 +180,14 @@ Plugin.prototype.deploy = function (dst) {
   img.className = 'convert__after-img';
   img.onload = function () {
     img.style.maxWidth = img.naturalWidth + 'px';
+    // correct resize for IE10
+    img.removeAttribute('height');
+    img.removeAttribute('width');
   };
   console.timeEnd('deploy');
-  this.callback();
+  if (this.callback) {
+    this.callback();
+  }
 };
 
 Plugin.prototype.toRad = function (deg) {

@@ -1,3 +1,7 @@
+// IE10 support
+console.time = console.time || function(){};
+console.timeEnd = console.timeEnd || function(){};
+
 var App = function () {
   this.promoRow = document.getElementById('promo');
   this.convertRows = document.getElementById('convert_rows');

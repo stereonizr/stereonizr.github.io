@@ -51,8 +51,9 @@ ConvertRow.prototype._onBeforeImgLoad = function() {
 
   this._beforeImg.style.maxWidth = this._beforeImg.naturalWidth + 'px';
 
-  //this._afterElement.style.minWidth = this._beforeImg.width + 'px';
-  //this._afterElement.style.minHeight = this._beforeImg.height + 'px';
+  // correct resize for IE10
+  this._beforeImg.removeAttribute('height');
+  this._beforeImg.removeAttribute('width');
 
   this.convert(this._beforeImg);
 };

@@ -5,12 +5,20 @@
   <meta name="viewport" content="width=device-width">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="s/s.css">
-  <link href="http://fonts.googleapis.com/css?family=Duru+Sans" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Duru+Sans" rel="stylesheet" type="text/css">
   <title>StereoMe: convert your photo to stereo</title>
   <script src="j/worker.js"></script>
   <script src="j/stereo.js"></script>
   <script src="j/app.js"></script>
   <script src="j/convertrow.js"></script>
+  <!--[if lt IE 10]>
+    <script>
+      this.detectOptions = {
+        versions: {i:9}, //Set versions. Letter is first letter of browser name
+    }
+    </script>
+    <script src="//korylprince.github.com/OldBrowserDetector/detect.min.js"></script>
+  <![endif]-->
 </head>
 <body draggable="true">
   <div class="l-main">
