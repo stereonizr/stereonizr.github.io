@@ -185,6 +185,10 @@ body {
   font-size: 10vw;
 }
 
+.social {
+  text-align: center;
+}
+
 .sitedesc {
   font-size: 20rem;
   margin-bottom: 2%;
